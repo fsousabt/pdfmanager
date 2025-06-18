@@ -8,13 +8,27 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.pdfmanager.core.entities.Library;
+import com.pdfmanager.core.services.BookService;
 import com.pdfmanager.core.services.LibraryService;
+import com.pdfmanager.core.services.NoteService;
+import com.pdfmanager.core.services.SlideService;
 
 public class Cli {
     private final LibraryService libraryService;
+    private final BookService bookService;
+    private final NoteService noteService;
+    private final SlideService slideService;
 
-    public Cli(LibraryService libraryService) {
+    public Cli(
+        LibraryService libraryService,
+        BookService bookService,
+        NoteService noteService,
+        SlideService slideService
+    ) {
         this.libraryService = libraryService;
+        this.bookService = bookService;
+        this.noteService = noteService;
+        this.slideService = slideService;
     }
 
     private boolean shouldCreateLibraryFirst(List<Library> libraries, Action action, Target target) {
@@ -75,13 +89,50 @@ public class Cli {
                                 // TODO: Handle Exception
                             }
                         }
-                        case BOOK -> {}
+                        case BOOK -> {
+                            // Escolha da biblioteca
+                            try (Scanner scanner = new Scanner(System.in)) {
+
+                            } catch (Exception e) {
+
+                            }
+                            // Criação de livro
+                            try (Scanner scanner = new Scanner(System.in)) {
+                                System.out.println(">> Criando livro: ");
+                                System.out.print(">> Digite o nome do autor do livro:\n>> ");
+                                String authorName = scanner.nextLine();
+                                System.out.print(">> Digite o titulo do livro:\n>> ");
+                                String title = scanner.nextLine();
+                                System.out.print(">> Digite o subtitulo do livro:\n>> ");
+                                String subtitle = scanner.nextLine();
+                                System.out.print(">> Digite a área de conhecimento do livro:\n>> ");
+                                String genre = scanner.nextLine();
+                                System.out.print(">> Digite a editora do livro [Opcional]:\n>> ");
+                                String editor = scanner.nextLine();
+                                System.out.print(">> Digite a quantidade de páginas do livro [Opcional]:\n>> ");
+                                String page = scanner.nextLine();
+                                System.out.print(">> Digite um path válido para o pdf que será copiado.\n>> ");
+                                String libPath = scanner.nextLine();
+                                if(!this.isSafeDirectoryFake(libPath)) {
+                                    System.out.println(">> Este path não é válido");
+                                    return;
+                                }
+                                int libId = 1;
+                                this.bookService.create(libPath, libId, authorName, title, subtitle, genre, editor, page);
+                                System.out.println(">> Livro adicionado à criada com sucesso!");
+
+                            } catch (Exception e) {
+                                // TODO: Handle Exception
+                            }
+                        }
                         case NOTE -> {}
                         case SLIDE -> {}
 
                     }
     }
-    private void handleList(String args[], Target target) {}
+    private void handleList(String args[], Target target) {
+
+    }
     private void handleUpdate(String args[], Target target) {}
     private void handleDelete(String args[], Target target) {}
 

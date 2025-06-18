@@ -1,12 +1,34 @@
 package com.pdfmanager.core.entities;
 
+import java.util.Optional;
+
 public class Slide extends Entry {
-  public Slide(int id, String dirname, String author, String title, int libraryId) {
-    super(id, dirname, author, title, libraryId);
+
+  protected String discipline;
+  protected Optional<String> institution;
+
+  public Slide(
+    int id,
+    String author,
+    String title,
+    int libraryId,
+    String discipline,
+    Optional<String> institution
+  ) {
+     super(id, author, title, libraryId);
+     this.discipline = discipline;
+     this.institution = institution;
   }
 
-  public Slide(String dirname, String author, String title, int libraryId) {
-    super(dirname, author, title, libraryId);
+  public Slide(
+    String author,
+    String title,
+    int libraryId,
+    String discipline,
+    Optional<String> institution
+  ) {
+     super(author, title, libraryId);
+     this.discipline = discipline;
+     this.institution = institution;
   }
-
 }

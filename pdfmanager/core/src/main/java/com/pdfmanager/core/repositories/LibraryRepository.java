@@ -15,6 +15,19 @@ public class LibraryRepository extends BaseRepository<Library> {
     }
 
     @Override
+    protected String getTableName() {
+        return "library";
+    }
+
+    @Override
+    protected Library mapResultSet(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        String path = rs.getString("path");
+        return new Library(id, name, path);
+    }
+
+    @Override
     public void create(Library lib) {
         String sql = "INSERT INTO " + getTableName() + " (name, path) VALUES (?, ?)";
         try (
@@ -49,17 +62,5 @@ public class LibraryRepository extends BaseRepository<Library> {
         }
     }
 
-    @Override
-    protected String getTableName() {
-        return "library";
-    }
-
-    @Override
-    protected Library mapResultSet(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        String path = rs.getString("path");
-        return new Library(id, name, path);
-    }
 
 }
