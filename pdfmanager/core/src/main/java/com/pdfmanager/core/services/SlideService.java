@@ -24,11 +24,9 @@ public class SlideService {
 
     // Checar se nome já foi registrado numa outra biblioteca -> throw Exception
 
-    //update
     this.slideRepository.create(new Slide(authorName, title, libraryId, discipline, institution));
   }
 
-  //update
   public void updateById(int id, int libraryId, String authorName, String title, String discipline, Optional<String> institution) {
     Slide slide = new Slide(authorName, title, libraryId, discipline, institution);
     this.slideRepository.updateById(id, slide);

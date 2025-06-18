@@ -25,11 +25,9 @@ public class NoteService {
 
     // Checar se nome já foi registrado numa outra biblioteca -> throw Exception
 
-    //update
     this.noteRepository.create(new Note(authorName, title, libraryId, subtitle, discipline, institution, pageSize));
   }
 
-  //update
   public void updateById(int id, int libraryId, String authorName, String title, String subtitle, String discipline, Optional<String> institution, OptionalInt pageSize) {
     Note note = new Note(authorName, title, libraryId, subtitle, discipline, institution, pageSize);
     this.noteRepository.updateById(id, note);
