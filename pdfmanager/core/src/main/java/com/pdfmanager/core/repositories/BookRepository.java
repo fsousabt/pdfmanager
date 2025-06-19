@@ -23,8 +23,17 @@ public class BookRepository extends BaseRepository<Book>{
 
   @Override
   protected Book mapResultSet(ResultSet rs) throws SQLException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'mapResultSet'");
+    int id = rs.getInt("id");
+    String author = rs.getString("author");
+    String title = rs.getString("title");
+    int libraryId = rs.getInt("library_id");
+    String subtitle = rs.getString("subtitle");
+    String genre = rs.getString("genre");
+    String editor = rs.getString("editor");
+    int pageSize = rs.getInt("page_size");
+    OptionalInt optionalPageSize = rs.wasNull() ? OptionalInt.empty() : OptionalInt.of(pageSize);
+    int publicationYear = rs.getInt("publication_year");
+    return new Book(id, author, title, libraryId, subtitle, genre, editor, optionalPageSize, publicationYear);
   }
 
   @Override
@@ -39,7 +48,7 @@ public class BookRepository extends BaseRepository<Book>{
             stmt.setString(3, book.getTitle());
             stmt.setString(4, book.getSubtitle());
             stmt.setString(5, book.getGenre());
-            stmt.setString(6, book.getEditor().toString());
+            stmt.setString(6, book.getEditor());
             OptionalInt bookPage = book.getPageSize();
             if(bookPage.isPresent()) {
               stmt.setInt(7, bookPage.getAsInt());
@@ -55,9 +64,44 @@ public class BookRepository extends BaseRepository<Book>{
   }
 
   @Override
-  public void updateById(int id, Book entity) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'updateById'");
+  public void updateById(int id, Book book) {
+    String sql = "UPDATE " + getTableName() + " SET "
+               + "library_id = ?, "
+               + "author = ?, "
+               + "title = ?, "
+               + "subtitle = ?, "
+               + "genre = ?, "
+               + "editor = ?, "
+               + "page_size = ?, "
+               + "publication_year = ? "
+               + "WHERE id = ?";
+
+    try (
+        Connection conn = this.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)
+    ) {
+        stmt.setInt(1, book.getLibraryId());
+        stmt.setString(2, book.getAuthor());
+        stmt.setString(3, book.getTitle());
+        stmt.setString(4, book.getSubtitle());
+        stmt.setString(5, book.getGenre());
+        stmt.setString(6, book.getEditor());
+
+        OptionalInt bookPage = book.getPageSize();
+        if (bookPage.isPresent()) {
+            stmt.setInt(7, bookPage.getAsInt());
+        } else {
+            stmt.setNull(7, Types.INTEGER);
+        }
+
+        stmt.setInt(8, book.getPublicationYear());
+        stmt.setInt(9, id); // ID no WHERE
+
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        System.err.println("Erro ao atualizar livro com id " + id + ": " + e.getMessage());
+    }
   }
 
 }
