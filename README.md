@@ -10,20 +10,10 @@
 
 │   ├── cli
 
-│   ├── gui
-
 ## How to build
-You can build both the cli and the gui using:
 ```
-./gradlew build
-```
-
-Or build a project individually using:
-```
-./gradlew pdfmanager:{project}:build
+./gradlew pdfmanager:cli:build
 ```
 
-## How to run 
-```
-./gradlew pdfmanager:{project}:run
-```
+Then go to `pdfmanager/cli/build/distributions/`, unzip the cli distribution
+and run the cli binary
