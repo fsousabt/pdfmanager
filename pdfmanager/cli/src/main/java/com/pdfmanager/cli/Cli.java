@@ -49,8 +49,8 @@ public class Cli {
             Path p = Paths.get(path);
             boolean exists = Files.exists(p);
             boolean isDir = Files.isDirectory(p);
-            System.err.println(exists);
-            System.err.println(isDir);
+            System.out.println(exists);
+            System.out.println(isDir);
             return exists && isDir;
         } catch (InvalidPathException | NullPointerException e) {
             System.err.println("Path inválido: " + e.getMessage());

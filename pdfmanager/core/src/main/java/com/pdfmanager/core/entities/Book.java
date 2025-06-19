@@ -1,12 +1,11 @@
 package com.pdfmanager.core.entities;
 
-import java.util.Optional;
 import java.util.OptionalInt;
 
 public class Book extends Entry {
     protected String subtitle;
     protected String genre;
-    protected Optional<String> editor;
+    protected String editor;
     protected OptionalInt pageSize;
     protected int publicationYear;
 
@@ -17,7 +16,7 @@ public class Book extends Entry {
      int libraryId,
      String subtitle,
      String genre,
-     Optional<String> editor,
+     String editor,
      OptionalInt pageSize,
      int publicationYear
     ) {
@@ -35,7 +34,7 @@ public class Book extends Entry {
      int libraryId,
      String subtitle,
      String genre,
-     Optional<String> editor,
+     String editor,
      OptionalInt pageSize,
      int publicationYear
     ) {
@@ -69,11 +68,11 @@ public class Book extends Entry {
       this.genre = genre;
     }
 
-    public Optional<String> getEditor() {
+    public String getEditor() {
       return editor;
     }
 
-    public void setEditor(Optional<String> editor) {
+    public void setEditor(String editor) {
       this.editor = editor;
     }
 
