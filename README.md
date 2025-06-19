@@ -1,7 +1,7 @@
 # PDFmanager
 ## Authors:
-  - Felipe Barauna
-  - Lucas Anselmo
+  - Felipe Barauna (felipe.barauna.131@ufrn.edu.br)
+  - Lucas Anselmo (lucas.anselmo.099@ufrn.edu.br)
 
 ## Project Structure
 ── pdfmanager
