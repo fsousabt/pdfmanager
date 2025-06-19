@@ -5,6 +5,7 @@ import java.util.OptionalInt;
 
 import com.pdfmanager.core.entities.Book;
 import com.pdfmanager.core.repositories.BookRepository;
+import com.pdfmanager.core.shared.Utils;
 
 public class BookService {
   private final BookRepository bookRepository;
@@ -17,20 +18,17 @@ public class BookService {
     return this.bookRepository.getAll();
   }
 
-  public void create(String path, int libraryId, String authorName, String title, String subtitle, String genre, int publicationYear, String editor, String pageSize) {
-    // Checar se path leva a um diretorio existente -> throw Exception
-
-    // Checar se path já foi registrado numa outra biblioteca -> throw Exception
-
-    // Checar se nome já foi registrado numa outra biblioteca -> throw Exception
-    OptionalInt pageSizeValue;
+  public void create(String path, int libraryId, String authorName, String title, String subtitle, String genre, String publicationYear, String editor, String pageSize) {
+    int publicationYearValue;
     try {
-        pageSizeValue = OptionalInt.of(Integer.parseInt(pageSize));
-      } catch (NumberFormatException e) {
-        pageSizeValue = OptionalInt.empty();
-      }
+      publicationYearValue = Utils.parseIntOrThrow(publicationYear);
+    } catch (NumberFormatException e) {
+      System.out.println("Ano de publicação do livro é obrigatório e deve ser um valor numérico!");
+      return;
+    }
+    OptionalInt pageSizeValue = Utils.parseOptionalInt(pageSize);
 
-    this.bookRepository.create(new Book(authorName, title, libraryId, subtitle, genre, editor, pageSizeValue, publicationYear));
+    this.bookRepository.create(new Book(authorName, title, libraryId, subtitle, genre, editor, pageSizeValue, publicationYearValue));
   }
 
   public void updateById(int id, int libraryId, String authorName, String title, String subtitle, String genre, int publicationYear, String editor, String pageSize) {

@@ -107,18 +107,20 @@ public class Cli {
                                 String subtitle = scanner.nextLine();
                                 System.out.print(">> Digite a área de conhecimento do livro:\n>> ");
                                 String genre = scanner.nextLine();
+                                System.out.print(">> Digite o ano de publicação do livro:\n>> ");
+                                String publicationYear = scanner.nextLine();
                                 System.out.print(">> Digite a editora do livro [Opcional]:\n>> ");
                                 String editor = scanner.nextLine();
                                 System.out.print(">> Digite a quantidade de páginas do livro [Opcional]:\n>> ");
                                 String page = scanner.nextLine();
                                 System.out.print(">> Digite um path válido para o pdf que será copiado.\n>> ");
-                                String libPath = scanner.nextLine();
-                                if(!this.isSafeDirectoryFake(libPath)) {
+                                String pdfPath = scanner.nextLine();
+                                if(!this.isSafeDirectoryFake(pdfPath)) {
                                     System.out.println(">> Este path não é válido");
                                     return;
                                 }
                                 int libId = 1;
-                                this.bookService.create(libPath, libId, authorName, title, subtitle, genre, editor, page);
+                                this.bookService.create(pdfPath, libId, authorName, title, subtitle, genre, publicationYear, editor, page);
                                 System.out.println(">> Livro adicionado à criada com sucesso!");
 
                             } catch (Exception e) {
